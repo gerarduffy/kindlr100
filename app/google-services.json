@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "533914000213",
+    "firebase_url": "https://kindler3-3fcab.firebaseio.com",
+    "project_id": "kindler3-3fcab",
+    "storage_bucket": "kindler3-3fcab.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:533914000213:android:351f26e175da5fba",
+        "android_client_info": {
+          "package_name": "com.brunogtavares.minglr"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "533914000213-rhr7l30al8vj9vbi7r3huc53os3sb64l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvgv8ongPWT6XOtRP0t6Y5HVQAVIWUzoc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
