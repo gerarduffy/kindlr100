@@ -37,10 +37,10 @@
             android:text="@string/matches_bt_label" />
 
         <Button
-            android:id="@+id/bt_favorites"
+            android:id="@+id/bt_currentUserProfile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/favorites" />
+            android:text="My Profile" />
 
     </LinearLayout>
 

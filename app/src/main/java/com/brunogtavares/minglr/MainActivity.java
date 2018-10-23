@@ -2,24 +2,21 @@ package com.brunogtavares.minglr;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.SpannableString;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.brunogtavares.minglr.FirebaseData.FirebaseContract.FirebaseEntry;
 import com.brunogtavares.minglr.cards.CardAdapter;
 import com.brunogtavares.minglr.cards.Card;
 import com.brunogtavares.minglr.matches.MatchesActivity;
+import com.brunogtavares.minglr.user.CurrentUserProfileActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -40,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private CardAdapter mAdapter;
     private int i;
 
-    private Button mFavoritesButton, mMatchesButton, mResetButton;
+    private Button mCurrentUserProfileButton, mMatchesButton, mResetButton;
 
     private FirebaseAuth mAuth;
 
@@ -59,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
         mUsersDb = FirebaseDatabase.getInstance().getReference().child(FirebaseEntry.TABLE_USERS);
 
-        mFavoritesButton = findViewById(R.id.bt_favorites);
+        mCurrentUserProfileButton = findViewById(R.id.bt_currentUserProfile);
         mResetButton = findViewById(R.id.bt_reset);
         mMatchesButton = findViewById(R.id.bt_matches);
 
@@ -139,11 +136,10 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // Adding a listener to Settings button
-        mFavoritesButton.setOnClickListener(new View.OnClickListener() {
+        mCurrentUserProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this,
-                        "Takes to Favorites", Toast.LENGTH_SHORT).show();
+                goToCurrentUserProfile();
             }
         });
 
@@ -317,6 +313,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void goToMatches() {
         Intent intent = new Intent(MainActivity.this, MatchesActivity.class);
+        startActivity(intent);
+        return;
+    }
+
+    private void goToCurrentUserProfile() {
+        Intent intent = new Intent(MainActivity.this, CurrentUserProfileActivity.class);
         startActivity(intent);
         return;
     }

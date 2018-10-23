@@ -4,7 +4,7 @@ package com.brunogtavares.minglr.FirebaseData;
  * Created by brunogtavares on 5/31/18.
  */
 
-public final class FirebaseContract {
+public final class  FirebaseContract {
 
     private FirebaseContract(){}
 
