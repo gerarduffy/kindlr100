@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Minglr</string>
+    <string name="sign_out">Sign out</string>
+    <string name="settings_bt_label">Settings</string>
+    <string name="user_name">Name</string>
+    <string name="user_phone">Phone</string>
+    <string name="confirm">Confirm</string>
+    <string name="back">Back</string>
+    <string name="matches_bt_label">matches</string>
+    <string name="send_label">Send</string>
+    <string name="message">message</string>
+    <string name="matches_activity_title">Matches</string>
+    <string name="settings_activity_title">Settings</string>
+    <string name="user_about">About me</string>
+    <string name="birthday">Birthday</string>
+    <string name="sex">Sex</string>
+    <string name="favorites">Favorites</string>
+</resources>
