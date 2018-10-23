@@ -55,14 +55,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mUsersDb = FirebaseDatabase.getInstance().getReference().child(FirebaseEntry.TABLE_POSTS);
-
-<<<<<<< HEAD
-        mFavoritesButton = findViewById(R.id.bt_favorites);
-        mResetButton = findViewById(R.id.bt_makePost);
-=======
         mCurrentUserProfileButton = findViewById(R.id.bt_currentUserProfile);
-        mResetButton = findViewById(R.id.bt_reset);
->>>>>>> d97f864638f280c4070a41248efb6e74d8949d1a
+        mResetButton = findViewById(R.id.bt_makePost);
         mMatchesButton = findViewById(R.id.bt_matches);
 
         mAuth = FirebaseAuth.getInstance();

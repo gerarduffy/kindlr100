@@ -82,12 +82,8 @@ public class creation_post extends AppCompatActivity implements View.OnClickList
         mAuth = FirebaseAuth.getInstance();
 
         DatabaseReference currentTablePosts = FirebaseDatabase.getInstance()
-                .getReference().child(FirebaseEntry.TABLE_POSTS).child(id);
-
+                .getReference().child(FirebaseEntry.TABLE_POSTS).child(id).child(title);
         Map userInfo = new HashMap();
-        userInfo.put(FirebaseEntry.COLUMN_TITLE, title);
-        userInfo.put(FirebaseEntry.COLUMN_NAME, owner);
-        userInfo.put(FirebaseEntry.COLUMN_USERID, id);
         userInfo.put(FirebaseEntry.COLUMN_SELL, sell);
         userInfo.put(FirebaseEntry.COLUMN_EXCHANGE, exchange);
 

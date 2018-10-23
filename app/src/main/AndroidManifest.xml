@@ -41,11 +41,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".user.UserProfileActivity" />
-<<<<<<< HEAD
         <activity android:name=".creation_post"></activity>
-=======
         <activity android:name=".user.CurrentUserProfileActivity"></activity>
->>>>>>> d97f864638f280c4070a41248efb6e74d8949d1a
     </application>
 
 </manifest>

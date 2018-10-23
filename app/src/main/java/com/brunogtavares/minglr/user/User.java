@@ -1,5 +1,7 @@
 package com.brunogtavares.minglr.user;
 
+import com.brunogtavares.minglr.cards.Card;
+
 /**
  * Created by brunogtavares on 6/11/18.
  */
