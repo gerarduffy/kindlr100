@@ -1,7 +1,7 @@
 package com.brunogtavares.minglr.FirebaseData;
 
 
-public final class FirebaseContract {
+public final class  FirebaseContract {
 
     private FirebaseContract(){}
 
