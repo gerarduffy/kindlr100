@@ -1,8 +1,5 @@
 package com.brunogtavares.minglr.FirebaseData;
 
-/**
- * Created by brunogtavares on 5/31/18.
- */
 
 public final class FirebaseContract {
 
@@ -13,10 +10,8 @@ public final class FirebaseContract {
         public static final String TABLE_USERS = "Users";
 
         // This direct child from Users, stores user's info
-        public static final String COLUMN_NAME = "name";
         public static final String COLUMN_SEX = "sex";
         public static final String COLUMN_BIRTHDAY = "birthday";
-        public static final String COLUMN_PROFILE_IMAGE_URL = "profileImageUrl";
 
         public static final String COLUMN_SEX_FEMALE = "Female";
         public static final String COLUMN_SEX_MALE = "Male";
@@ -33,5 +28,16 @@ public final class FirebaseContract {
         public static final String COLUMN_IMAGE_URL = "imageUrl";
 
         public static final String COLUMN_ABOUT_ME = "aboutMe" ;
+
+        // Posts
+        public static final String TABLE_POSTS = "Posts";
+        public static final String COLUMN_TITLE = "title";
+        public static final String COLUMN_SELL = "sell";
+        public static final String COLUMN_EXCHANGE = "exchange";
+        public static final String COLUMN_NAME= "owner";
+        public static final String COLUMN_PRICE = "price";
+        public static final String COLUMN_PROFILE_IMAGE_URL = "profileImageUrl";
+        public static final String COLUMN_USERID = "userID";
+
     }
 }

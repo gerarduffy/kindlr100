@@ -57,16 +57,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mUsersDb = FirebaseDatabase.getInstance().getReference().child(FirebaseEntry.TABLE_USERS);
+        mUsersDb = FirebaseDatabase.getInstance().getReference().child(FirebaseEntry.TABLE_POSTS);
 
         mFavoritesButton = findViewById(R.id.bt_favorites);
-        mResetButton = findViewById(R.id.bt_reset);
+        mResetButton = findViewById(R.id.bt_makePost);
         mMatchesButton = findViewById(R.id.bt_matches);
 
         mAuth = FirebaseAuth.getInstance();
         mCurrentUserId = mAuth.getCurrentUser().getUid();
 
-        checkUserSex();
+        //checkUserSex();
 
         mRowItems = new ArrayList<>();
         mAdapter = new CardAdapter(this, R.layout.item, mRowItems );
@@ -134,7 +134,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(MainActivity.this,
-                        "Resets all the nopes", Toast.LENGTH_SHORT).show();
+                        "Make Post", Toast.LENGTH_SHORT).show();
+                createPost();
+
             }
         });
 
@@ -247,7 +249,10 @@ public class MainActivity extends AppCompatActivity {
 
                     Card card = new Card(dataSnapshot.getKey(),
                             dataSnapshot.child(FirebaseEntry.COLUMN_NAME).getValue().toString(),
-                            profileImageUrl);
+                            profileImageUrl, dataSnapshot.child(FirebaseEntry.COLUMN_TITLE).getValue().toString(),
+                            dataSnapshot.child(FirebaseEntry.COLUMN_EXCHANGE).getValue().toString(),
+                            dataSnapshot.child(FirebaseEntry.COLUMN_SELL).getValue().toString(),
+                            ((int) dataSnapshot.child(FirebaseEntry.COLUMN_PRICE).getValue()));
 
                     mRowItems.add(card);
                     mAdapter.notifyDataSetChanged();
@@ -299,6 +304,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void logoutCleanUp() {
 
+    }
+
+    private void createPost() {
+        Intent i = new Intent(getApplicationContext(), creation_post.class);
+        startActivity(i);
     }
 
     private void logoutUser() {

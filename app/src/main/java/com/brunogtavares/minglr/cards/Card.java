@@ -1,15 +1,28 @@
 package com.brunogtavares.minglr.cards;
 
+import com.brunogtavares.minglr.user.User;
+
 public class Card {
-    private String userId;
-    private String userName;
-    private String profileImageUrl;
+    public String exchange;
+    public String sell;
+    public String title;
+    public int price;
+    public String userId;
+    public String userName;
+    public String profileImageUrl;
+
+    public Card() {
+
+    }
 
 
-    public Card(String userId, String userName, String profileImageUrl) {
+    public Card(String userId, String userName, String profileImageUrl, String title, String exchange, String sell, int price) {
         this.userId = userId;
         this.userName = userName;
         this.profileImageUrl = profileImageUrl;
+        this.title = title;
+        this.exchange = exchange;
+        this.sell = sell;
     }
 
     public String getUserId() {

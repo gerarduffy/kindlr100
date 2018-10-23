@@ -27,19 +27,21 @@
         <activity
             android:name=".matches.MatchesActivity"
             android:label="@string/matches_activity_title" />
-        <activity android:name=".chat.ChatActivity" >
+        <activity android:name=".chat.ChatActivity">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
                 <data
                     android:host="friendlychat.firebase.google.com"
-                    android:scheme="https"
                     android:pathPrefix="/Chat"
-                    />
+                    android:scheme="https" />
             </intent-filter>
         </activity>
-        <activity android:name=".user.UserProfileActivity"></activity>
+        <activity android:name=".user.UserProfileActivity" />
+        <activity android:name=".creation_post"></activity>
     </application>
 
 </manifest>

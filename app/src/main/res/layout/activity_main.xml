@@ -24,10 +24,10 @@
         android:layout_alignParentBottom="true">
 
         <Button
-            android:id="@+id/bt_reset"
+            android:id="@+id/bt_makePost"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="reset" />
+            android:text="Make Post" />
 
         <Button
             android:id="@+id/bt_matches"
