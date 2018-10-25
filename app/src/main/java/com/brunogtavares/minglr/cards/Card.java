@@ -11,8 +11,19 @@ public class Card {
     public String userName;
     public String profileImageUrl;
 
-    public Card() {
+    public Card(){};
 
+    public Card(String exchange, String sell, String title) {
+        this.exchange = exchange;
+        this.sell = sell;
+        this.title = title;
+    }
+
+    public Card(int price, String sell, String exchange, String title) {
+        this.exchange = exchange;
+        this.price = price;
+        this.sell = sell;
+        this.title = title;
     }
 
 

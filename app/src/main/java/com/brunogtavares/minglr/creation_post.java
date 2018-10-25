@@ -69,8 +69,6 @@ public class creation_post extends AppCompatActivity implements View.OnClickList
         String owner = mAuth.getCurrentUser().getDisplayName();
         String id = mAuth.getCurrentUser().getUid();
 
-
-        Card post = new Card();
         if (postType.equals("Sell")) {
             sell = "true";
             exchange = "false";
@@ -82,10 +80,10 @@ public class creation_post extends AppCompatActivity implements View.OnClickList
         mAuth = FirebaseAuth.getInstance();
 
         DatabaseReference currentTablePosts = FirebaseDatabase.getInstance()
-                .getReference().child(FirebaseEntry.TABLE_POSTS).child(id).child(title);
-        Map userInfo = new HashMap();
-        userInfo.put(FirebaseEntry.COLUMN_SELL, sell);
-        userInfo.put(FirebaseEntry.COLUMN_EXCHANGE, exchange);
+                .getReference().child(FirebaseEntry.TABLE_POSTS).child(id);
+        Card newCard = new Card(exchange, sell, title);
+        Map userInfo = new HashMap<String, Card>();
+        userInfo.put(title, newCard);
 
         currentTablePosts.updateChildren(userInfo);
 

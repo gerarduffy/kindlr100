@@ -20,6 +20,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CurrentUserProfileActivity extends AppCompatActivity {
     private FirebaseUser mCurrentUser;
@@ -49,18 +51,16 @@ public class CurrentUserProfileActivity extends AppCompatActivity {
 
         currentUserBookList = (ListView) findViewById(R.id.currentUserBooks);
         // Getting card list from database
-        Log.d("test", "test");
         FirebaseDatabase.getInstance().getReference().child("Posts").child(mCurrentUserId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Card currentCard = new Card();
-                    currentCard.title = snapshot.toString();
-                    currentCard.exchange = snapshot.child("exchange").toString();
-                    currentCard.sell = snapshot.child("sell").toString();
+                    Card currentCard = snapshot.getValue(Card.class);
                     currentUserBooks.add(currentCard);
                     currentUserBookNames.add(currentCard.title);
                 }
+                currentUserBooksAdapter = new ArrayAdapter<String>(CurrentUserProfileActivity.this, android.R.layout.simple_dropdown_item_1line, currentUserBookNames);
+                currentUserBookList.setAdapter(currentUserBooksAdapter);
             }
 
             @Override
@@ -68,10 +68,5 @@ public class CurrentUserProfileActivity extends AppCompatActivity {
 
             }
         });
-        for (String name : currentUserBookNames) {
-            Log.d("title", name);
-        }
-        currentUserBooksAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, currentUserBookNames);
-        currentUserBookList.setAdapter(currentUserBooksAdapter);
     }
 }

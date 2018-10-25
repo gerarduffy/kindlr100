@@ -53,12 +53,12 @@ public class UserProfileActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Card currentCard = new Card();
-                    currentCard.title = snapshot.toString();
-                    currentCard.exchange = snapshot.child("exchange").toString();
-                    currentCard.sell = snapshot.child("sell").toString();
-                    currentUserBooks.add(currentCard);
-                    currentUserBookNames.add(currentCard.title);
+//                    Card currentCard = new Card();
+//                    currentCard.title = snapshot.toString();
+//                    currentCard.exchange = snapshot.child("exchange").toString();
+//                    currentCard.sell = snapshot.child("sell").toString();
+//                    currentUserBooks.add(currentCard);
+//                    currentUserBookNames.add(currentCard.title);
                 }
             }
 
