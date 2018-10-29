@@ -2,6 +2,8 @@ package com.brunogtavares.minglr.cards;
 
 import com.brunogtavares.minglr.user.User;
 
+import java.util.ArrayList;
+
 public class Card {
     public String exchange;
     public String sell;
@@ -10,6 +12,8 @@ public class Card {
     public String userId;
     public String userName;
     public String profileImageUrl;
+    public ArrayList<String> likers = new ArrayList<String>();
+    public ArrayList<String> dislikers = new ArrayList<String>();
 
     public Card(){};
 
@@ -19,7 +23,7 @@ public class Card {
         this.title = title;
     }
 
-    public Card(int price, String sell, String exchange, String title) {
+    public Card(String userId, String title, String exchange, String sell, int price) {
         this.exchange = exchange;
         this.price = price;
         this.sell = sell;

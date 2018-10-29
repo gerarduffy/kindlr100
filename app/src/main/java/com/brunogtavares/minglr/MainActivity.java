@@ -1,6 +1,7 @@
 package com.brunogtavares.minglr;
 
 import android.content.Intent;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -43,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
     private String mUserSex, mOppositeSex, mCurrentUserId;
 
-    private DatabaseReference mUsersDb;
+    private DatabaseReference mPostDb;
 
     private ListView mListView;
     private List<Card> mRowItems;
@@ -54,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mUsersDb = FirebaseDatabase.getInstance().getReference().child(FirebaseEntry.TABLE_POSTS);
+        mPostDb = FirebaseDatabase.getInstance().getReference().child(FirebaseEntry.TABLE_POSTS);
         mCurrentUserProfileButton = findViewById(R.id.bt_currentUserProfile);
         mResetButton = findViewById(R.id.bt_makePost);
         mMatchesButton = findViewById(R.id.bt_matches);
@@ -62,10 +63,11 @@ public class MainActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mCurrentUserId = mAuth.getCurrentUser().getUid();
 
+        loadBookCards();
         //checkUserSex();
 
         mRowItems = new ArrayList<>();
-        mAdapter = new CardAdapter(this, R.layout.item, mRowItems );
+        mAdapter = new CardAdapter(this, R.layout.item, mRowItems);
 
         SwipeFlingAdapterView flingContainer = (SwipeFlingAdapterView) findViewById(R.id.fs_frame);
 
@@ -86,8 +88,7 @@ public class MainActivity extends AppCompatActivity {
                 Card card = (Card) dataObject;
                 String userId = card.getUserId();
 
-                mUsersDb.child(userId).child(FirebaseEntry.COLUMN_CONNECTIONS)
-                        .child(FirebaseEntry.COLUMN_NOPE).child(mCurrentUserId).setValue(true);
+                mPostDb.child(userId).child(card.title).child(FirebaseEntry.COLUMN_DISLIKERS).child(mCurrentUserId).setValue(true);
 
                 Toast.makeText(MainActivity.this, FirebaseEntry.COLUMN_NOPE, Toast.LENGTH_SHORT).show();
             }
@@ -98,8 +99,7 @@ public class MainActivity extends AppCompatActivity {
                 Card card = (Card) dataObject;
                 String userId = card.getUserId();
 
-                mUsersDb.child(userId).child(FirebaseEntry.COLUMN_CONNECTIONS)
-                        .child(FirebaseEntry.COLUMN_YEP).child(mCurrentUserId).setValue(true);
+                mPostDb.child(userId).child(card.title).child(FirebaseEntry.COLUMN_LIKERS).child(mCurrentUserId).setValue(true);
                 isConnectionMatch(userId);
                 Toast.makeText(MainActivity.this, FirebaseEntry.COLUMN_YEP, Toast.LENGTH_SHORT).show();
             }
@@ -156,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void isConnectionMatch(String userId) {
 
-        DatabaseReference currentUserConnectionsDB = mUsersDb.child(mCurrentUserId)
+        DatabaseReference currentUserConnectionsDB = mPostDb.child(mCurrentUserId)
                 .child(FirebaseEntry.COLUMN_CONNECTIONS).child(FirebaseEntry.COLUMN_YEP).child(userId);
 
         currentUserConnectionsDB.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -171,11 +171,11 @@ public class MainActivity extends AppCompatActivity {
                     // This won't create a child inside chat but it will give the key for that chat.
                     String key = FirebaseDatabase.getInstance().getReference().child(FirebaseEntry.TABLE_CHAT).push().getKey();
 
-                    mUsersDb.child(dataSnapshot.getKey())
+                    mPostDb.child(dataSnapshot.getKey())
                             .child(FirebaseEntry.COLUMN_CONNECTIONS).child(FirebaseEntry.COLUMN_MATCHES)
                             .child(mCurrentUserId).child(FirebaseEntry.COLUMN_CHAT_ID).setValue(key);
 
-                    mUsersDb.child(mCurrentUserId)
+                    mPostDb.child(mCurrentUserId)
                             .child(FirebaseEntry.COLUMN_CONNECTIONS).child(FirebaseEntry.COLUMN_MATCHES)
                             .child(dataSnapshot.getKey()).child(FirebaseEntry.COLUMN_CHAT_ID).setValue(key);
 
@@ -188,69 +188,86 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+//
+//    private void checkUserSex() {
+//
+//        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//        DatabaseReference userDb = mPostDb.child(user.getUid());
+//        userDb.addListenerForSingleValueEvent(new ValueEventListener() {
+//
+//            // keeps looking for changes in the Firebase database
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                if (dataSnapshot.exists()) {
+//                    if (dataSnapshot.child(FirebaseEntry.COLUMN_SEX).getValue() != null) {
+//                        mUserSex = dataSnapshot.child(FirebaseEntry.COLUMN_SEX).getValue().toString();
+//
+//                        // Temporary preference assignment
+//                        if(mUserSex.equals(FirebaseEntry.COLUMN_SEX_MALE)) {
+//                            mOppositeSex = FirebaseEntry.COLUMN_SEX_FEMALE;
+//                        }
+//                        if(mUserSex.equals(FirebaseEntry.COLUMN_SEX_FEMALE)) {
+//                            mOppositeSex = FirebaseEntry.COLUMN_SEX_MALE;
+//                        }
+//                        getOppositeSex();
+//                    }
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
+//    }
 
-    private void checkUserSex() {
-
-        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        DatabaseReference userDb = mUsersDb.child(user.getUid());
-        userDb.addListenerForSingleValueEvent(new ValueEventListener() {
-
-            // keeps looking for changes in the Firebase database
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    if (dataSnapshot.child(FirebaseEntry.COLUMN_SEX).getValue() != null) {
-                        mUserSex = dataSnapshot.child(FirebaseEntry.COLUMN_SEX).getValue().toString();
-
-                        // Temporary preference assignment
-                        if(mUserSex.equals(FirebaseEntry.COLUMN_SEX_MALE)) {
-                            mOppositeSex = FirebaseEntry.COLUMN_SEX_FEMALE;
-                        }
-                        if(mUserSex.equals(FirebaseEntry.COLUMN_SEX_FEMALE)) {
-                            mOppositeSex = FirebaseEntry.COLUMN_SEX_MALE;
-                        }
-                        getOppositeSex();
-                    }
-                }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-    private void getOppositeSex() {
-        mUsersDb.addChildEventListener(new ChildEventListener() {
+    private void loadBookCards() {
+        mPostDb.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
                 // if(dataSnapshot.child(FirebaseEntry.COLUMN_SEX).getValue() != null)
-
-                // Check whether the database exists and also check if the user hasn't already swiped the matches left or right
-                if(dataSnapshot.exists()
-                        && !dataSnapshot.child(FirebaseEntry.COLUMN_CONNECTIONS).child(FirebaseEntry.COLUMN_NOPE).hasChild(mCurrentUserId)
-                        && !dataSnapshot.child(FirebaseEntry.COLUMN_CONNECTIONS).child(FirebaseEntry.COLUMN_YEP).hasChild(mCurrentUserId)
-                        && dataSnapshot.child(FirebaseEntry.COLUMN_SEX).getValue().toString().equals(mOppositeSex)) {
-
-                    String profileImageUrl = "default";
-
-                    // If user has assigned an image on registration, assign it to profileImageUrl
-                    if(!dataSnapshot.child(FirebaseEntry.COLUMN_PROFILE_IMAGE_URL).getValue().equals("default")) {
-                        profileImageUrl = dataSnapshot.child(FirebaseEntry.COLUMN_PROFILE_IMAGE_URL).getValue().toString();
+//
+//                // Check whether the database exists and also check if the user hasn't already swiped the matches left or right
+//                if(dataSnapshot.exists()
+//                        && !dataSnapshot.child(FirebaseEntry.COLUMN_CONNECTIONS).child(FirebaseEntry.COLUMN_LIKERS).hasChild(mCurrentUserId)
+//                        && !dataSnapshot.child(FirebaseEntry.COLUMN_CONNECTIONS).child(FirebaseEntry.COLUMN_DISLIKERS).hasChild(mCurrentUserId)) {
+//
+//                    String profileImageUrl = "default";
+//
+//                    // If user has assigned an image on registration, assign it to profileImageUrl
+//                    if(!dataSnapshot.child(FirebaseEntry.COLUMN_PROFILE_IMAGE_URL).getValue().equals("default")) {
+//                        profileImageUrl = dataSnapshot.child(FirebaseEntry.COLUMN_PROFILE_IMAGE_URL).getValue().toString();
+//                    }
+//
+//                    Card card = new Card(dataSnapshot.getKey(),
+//                            dataSnapshot.child(FirebaseEntry.COLUMN_NAME).getValue().toString(),
+//                            profileImageUrl, dataSnapshot.child(FirebaseEntry.COLUMN_TITLE).getValue().toString(),
+//                            dataSnapshot.child(FirebaseEntry.COLUMN_EXCHANGE).getValue().toString(),
+//                            dataSnapshot.child(FirebaseEntry.COLUMN_SELL).getValue().toString(),
+//                            ((int) dataSnapshot.child(FirebaseEntry.COLUMN_PRICE).getValue()));
+//
+//                    mRowItems.add(card);
+//                    mAdapter.notifyDataSetChanged();
+//                }
+                for (DataSnapshot user : dataSnapshot.getChildren()) {
+                    if (!user.getValue().equals(mCurrentUserId)) {
+                        for (DataSnapshot book : dataSnapshot.getChildren()) {
+                            if (!book.child(FirebaseEntry.COLUMN_LIKERS).hasChild(mCurrentUserId)
+                                    && book.child(FirebaseEntry.COLUMN_DISLIKERS).hasChild(mCurrentUserId)) {
+                                Card currentBook = new Card(
+                                        user.getKey(), book.getKey(),
+                                        (String) book.child(FirebaseEntry.COLUMN_EXCHANGE).getValue(),
+                                        (String) book.child(FirebaseEntry.COLUMN_SELL).getValue(),
+                                        (Integer) book.child(FirebaseEntry.COLUMN_PRICE).getValue());
+                                mRowItems.add(currentBook);
+                                Log.d("CurrentBook", currentBook.title);
+                                mAdapter.notifyDataSetChanged();
+                            }
+                        }
                     }
 
-                    Card card = new Card(dataSnapshot.getKey(),
-                            dataSnapshot.child(FirebaseEntry.COLUMN_NAME).getValue().toString(),
-                            profileImageUrl, dataSnapshot.child(FirebaseEntry.COLUMN_TITLE).getValue().toString(),
-                            dataSnapshot.child(FirebaseEntry.COLUMN_EXCHANGE).getValue().toString(),
-                            dataSnapshot.child(FirebaseEntry.COLUMN_SELL).getValue().toString(),
-                            ((int) dataSnapshot.child(FirebaseEntry.COLUMN_PRICE).getValue()));
-
-                    mRowItems.add(card);
-                    mAdapter.notifyDataSetChanged();
                 }
             }
 

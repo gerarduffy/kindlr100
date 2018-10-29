@@ -87,6 +87,7 @@ public class SignupActivity extends AppCompatActivity {
                                     userInfo.put(FirebaseEntry.COLUMN_NAME, name);
                                     userInfo.put(FirebaseEntry.COLUMN_SEX, radioButton.getText().toString());
                                     userInfo.put(FirebaseEntry.COLUMN_PROFILE_IMAGE_URL, "default");
+                                    userInfo.put(FirebaseEntry.COLUMN_EMAIL, email);
 
                                     currentUserDb.updateChildren(userInfo);
 

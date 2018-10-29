@@ -1,9 +1,12 @@
 package com.brunogtavares.minglr.user;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -61,6 +64,13 @@ public class CurrentUserProfileActivity extends AppCompatActivity {
                 }
                 currentUserBooksAdapter = new ArrayAdapter<String>(CurrentUserProfileActivity.this, android.R.layout.simple_dropdown_item_1line, currentUserBookNames);
                 currentUserBookList.setAdapter(currentUserBooksAdapter);
+                currentUserBookList.setClickable(true);
+                currentUserBookList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        // Open options to delete book from list.
+                    }
+                });
             }
 
             @Override

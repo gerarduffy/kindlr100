@@ -28,7 +28,7 @@
         android:layout_marginTop="51dp"
         android:layout_marginEnd="24dp"
         android:layout_marginRight="24dp"
-        android:text="Jacob"
+        android:text="Current User's Name"
         android:textSize="30sp" />
 
     <TextView

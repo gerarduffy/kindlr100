@@ -20,6 +20,8 @@ public final class  FirebaseContract {
         public static final String COLUMN_NOPE = "nope";
         public static final String COLUMN_YEP = "yep";
         public static final String COLUMN_MATCHES = "matches";
+        public static final String COLUMN_LIKERS = "likers";
+        public static final String COLUMN_DISLIKERS = "dislikers";
 
         public static final String TABLE_CHAT = "Chat";
         public static final String COLUMN_CHAT_ID = "ChatId";
@@ -38,6 +40,7 @@ public final class  FirebaseContract {
         public static final String COLUMN_PRICE = "price";
         public static final String COLUMN_PROFILE_IMAGE_URL = "profileImageUrl";
         public static final String COLUMN_USERID = "userID";
+        public static final String COLUMN_EMAIL = "email";
 
     }
 }

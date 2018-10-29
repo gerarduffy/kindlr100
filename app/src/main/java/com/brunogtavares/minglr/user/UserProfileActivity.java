@@ -1,8 +1,11 @@
 package com.brunogtavares.minglr.user;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -22,16 +25,15 @@ import java.util.ArrayList;
 
 public class UserProfileActivity extends AppCompatActivity {
 
-    private FirebaseUser mCurrentUser;
     private DatabaseReference mUsersDb;
-    private String mCurrentUserId;
+    private String userClickedOnId;
+    private String userClickedOnEmail;
     private FirebaseAuth mAuth;
-
-    private ArrayList<Card> currentUserBooks = new ArrayList<Card>();
-    private ArrayList<String> currentUserBookNames = new ArrayList<String>();
-    private ArrayAdapter<String> currentUserBooksAdapter;
-    private ListView currentUserBookList;
-    private TextView currentUserName;
+    private ArrayList<Card> userClickedOnBooks = new ArrayList<Card>();
+    private ArrayList<String> userClickedOnBookNames = new ArrayList<String>();
+    private ArrayAdapter<String> userClickedOnBooksAdapter;
+    private ListView userClickedOnBookList;
+    private TextView userClickedOnName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,26 +42,15 @@ public class UserProfileActivity extends AppCompatActivity {
 
         mUsersDb = FirebaseDatabase.getInstance().getReference().child(FirebaseContract.FirebaseEntry.TABLE_USERS);
         mAuth = FirebaseAuth.getInstance();
-        mCurrentUserId = mAuth.getCurrentUser().getUid();
-        mCurrentUser = mAuth.getCurrentUser();
+        Intent intent = getIntent();
+        userClickedOnId = (String) intent.getSerializableExtra("userClickedOnId");
 
-        currentUserName = findViewById(R.id.currentUserName);
-        currentUserName.setText(mCurrentUser.getDisplayName());
-
-
-        currentUserBookList = findViewById(R.id.currentUserBooks);
-        // Getting card list from database
-        FirebaseDatabase.getInstance().getReference().child("Posts").child(mCurrentUserId).addListenerForSingleValueEvent(new ValueEventListener() {
+        userClickedOnName = findViewById(R.id.userClickedOnName);
+        FirebaseDatabase.getInstance().getReference().child("Users").child(userClickedOnId).child("email").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-//                    Card currentCard = new Card();
-//                    currentCard.title = snapshot.toString();
-//                    currentCard.exchange = snapshot.child("exchange").toString();
-//                    currentCard.sell = snapshot.child("sell").toString();
-//                    currentUserBooks.add(currentCard);
-//                    currentUserBookNames.add(currentCard.title);
-                }
+                userClickedOnEmail = (String) dataSnapshot.getValue();
+                userClickedOnName.setText(userClickedOnEmail);
             }
 
             @Override
@@ -67,7 +58,35 @@ public class UserProfileActivity extends AppCompatActivity {
 
             }
         });
-        currentUserBooksAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, currentUserBookNames);
-        currentUserBookList.setAdapter(currentUserBooksAdapter);
+
+        userClickedOnBookList = findViewById(R.id.userClickedOnBooks);
+
+        // Getting card list from database
+        FirebaseDatabase.getInstance().getReference().child("Posts").child(userClickedOnId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Card currentCard = snapshot.getValue(Card.class);
+                    userClickedOnBooks.add(currentCard);
+                    userClickedOnBookNames.add(currentCard.title);
+                }
+                userClickedOnBooksAdapter = new ArrayAdapter<String>(UserProfileActivity.this, android.R.layout.simple_dropdown_item_1line, userClickedOnBookNames);
+                userClickedOnBookList.setAdapter(userClickedOnBooksAdapter);
+                userClickedOnBookList.setClickable(true);
+                userClickedOnBookList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        // Open options to delete book from list.
+                    }
+                });
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        userClickedOnBooksAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, userClickedOnBookNames);
+        userClickedOnBookList.setAdapter(userClickedOnBooksAdapter);
     }
 }
