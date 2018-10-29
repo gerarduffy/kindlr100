@@ -78,4 +78,12 @@ public class Card {
         return this.dislikers;
     }
 
+    public void setDislikers(ArrayList<String> dislikers) {
+        this.dislikers = dislikers;
+    }
+
+    public void setLikers(ArrayList<String> likers) {
+        this.likers = likers;
+    }
+
 }

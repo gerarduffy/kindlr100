@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
     private Card mCardData[];
 
     private CardAdapter mAdapter;
-    private int i;
 
     private Button mCurrentUserProfileButton, mMatchesButton, mResetButton;
 
@@ -155,36 +154,62 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void isConnectionMatch(String userId) {
+    private void isConnectionMatch(final String userId) {
 
-        DatabaseReference currentUserConnectionsDB = mPostDb.child(mCurrentUserId)
-                .child(FirebaseEntry.COLUMN_CONNECTIONS).child(FirebaseEntry.COLUMN_YEP).child(userId);
-
-        currentUserConnectionsDB.addListenerForSingleValueEvent(new ValueEventListener() {
-
-            // Keeps looking for change of data in Firebase database content
+//        DatabaseReference currentUserConnectionsDB = mPostDb.child(mCurrentUserId)
+//                .child(FirebaseEntry.COLUMN_CONNECTIONS).child(FirebaseEntry.COLUMN_YEP).child(userId);
+//
+//        currentUserConnectionsDB.addListenerForSingleValueEvent(new ValueEventListener() {
+//
+//            // Keeps looking for change of data in Firebase database content
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                if(dataSnapshot.exists()) {
+//
+//                    Toast.makeText(MainActivity.this, "A match has been made!", Toast.LENGTH_LONG).show();
+//
+//                    // This won't create a child inside chat but it will give the key for that chat.
+//                    String key = FirebaseDatabase.getInstance().getReference().child(FirebaseEntry.TABLE_CHAT).push().getKey();
+//
+//                    mPostDb.child(dataSnapshot.getKey())
+//                            .child(FirebaseEntry.COLUMN_CONNECTIONS).child(FirebaseEntry.COLUMN_MATCHES)
+//                            .child(mCurrentUserId).child(FirebaseEntry.COLUMN_CHAT_ID).setValue(key);
+//
+//                    mPostDb.child(mCurrentUserId)
+//                            .child(FirebaseEntry.COLUMN_CONNECTIONS).child(FirebaseEntry.COLUMN_MATCHES)
+//                            .child(dataSnapshot.getKey()).child(FirebaseEntry.COLUMN_CHAT_ID).setValue(key);
+//
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
+        final DatabaseReference currentUser = mPostDb.child(mCurrentUserId);
+        currentUser.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot book : dataSnapshot.getChildren()) {
+                    if (book.child(FirebaseEntry.COLUMN_LIKERS).hasChild(userId)) {
+                        Toast.makeText(MainActivity.this, "A match has been made!", Toast.LENGTH_LONG).show();
+                        // This won't create a child inside chat but it will give the key for that chat.
+                        String key = FirebaseDatabase.getInstance().getReference().child(FirebaseEntry.TABLE_CHAT).push().getKey();
 
-                    Toast.makeText(MainActivity.this, "A match has been made!", Toast.LENGTH_LONG).show();
+                        mPostDb.child(userId)
+                                .child(FirebaseEntry.COLUMN_CONNECTIONS).child(FirebaseEntry.COLUMN_MATCHES)
+                                .child(mCurrentUserId).child(FirebaseEntry.COLUMN_CHAT_ID).setValue(key);
 
-                    // This won't create a child inside chat but it will give the key for that chat.
-                    String key = FirebaseDatabase.getInstance().getReference().child(FirebaseEntry.TABLE_CHAT).push().getKey();
-
-                    mPostDb.child(dataSnapshot.getKey())
-                            .child(FirebaseEntry.COLUMN_CONNECTIONS).child(FirebaseEntry.COLUMN_MATCHES)
-                            .child(mCurrentUserId).child(FirebaseEntry.COLUMN_CHAT_ID).setValue(key);
-
-                    mPostDb.child(mCurrentUserId)
-                            .child(FirebaseEntry.COLUMN_CONNECTIONS).child(FirebaseEntry.COLUMN_MATCHES)
-                            .child(dataSnapshot.getKey()).child(FirebaseEntry.COLUMN_CHAT_ID).setValue(key);
-
+                        mPostDb.child(mCurrentUserId)
+                                .child(FirebaseEntry.COLUMN_CONNECTIONS).child(FirebaseEntry.COLUMN_MATCHES)
+                                .child(userId).child(FirebaseEntry.COLUMN_CHAT_ID).setValue(key);
+                    }
                 }
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
@@ -253,10 +278,8 @@ public class MainActivity extends AppCompatActivity {
 //                    mRowItems.add(card);
 //                    mAdapter.notifyDataSetChanged();
 //                }
-                Log.d("length", "length");
                 for (DataSnapshot user : dataSnapshot.getChildren()) {
-                    Log.d("userId", dataSnapshot.getKey());
-                    if (!user.getValue().equals(mCurrentUserId)) {
+                    if (!dataSnapshot.getKey().equals(mCurrentUserId)) {
                         for (DataSnapshot book : dataSnapshot.getChildren()) {
                             if (!book.child(FirebaseEntry.COLUMN_LIKERS).hasChild(mCurrentUserId)
                                     && !book.child(FirebaseEntry.COLUMN_DISLIKERS).hasChild(mCurrentUserId)) {

@@ -58,9 +58,15 @@ public class CurrentUserProfileActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Card currentCard = snapshot.getValue(Card.class);
-                    currentUserBooks.add(currentCard);
-                    currentUserBookNames.add(currentCard.title);
+                    if (!snapshot.getKey().equals(FirebaseContract.FirebaseEntry.COLUMN_CONNECTIONS)) {
+                        Card currentCard = new Card();
+                        currentCard.sell = (String) snapshot.child(FirebaseContract.FirebaseEntry.COLUMN_SELL).getValue();
+                        currentCard.exchange = (String) snapshot.child(FirebaseContract.FirebaseEntry.COLUMN_EXCHANGE).getValue();
+                        currentCard.title = (String) snapshot.child(FirebaseContract.FirebaseEntry.COLUMN_TITLE).getValue();
+                        currentCard.profileImageUrl = (String) snapshot.child(FirebaseContract.FirebaseEntry.COLUMN_PROFILE_IMAGE_URL).getValue();
+                        currentUserBooks.add(currentCard);
+                        currentUserBookNames.add(currentCard.title);
+                    }
                 }
                 currentUserBooksAdapter = new ArrayAdapter<String>(CurrentUserProfileActivity.this, android.R.layout.simple_dropdown_item_1line, currentUserBookNames);
                 currentUserBookList.setAdapter(currentUserBooksAdapter);
