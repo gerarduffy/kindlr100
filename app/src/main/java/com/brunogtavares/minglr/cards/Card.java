@@ -2,16 +2,17 @@ package com.brunogtavares.minglr.cards;
 
 import com.brunogtavares.minglr.user.User;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Card {
     public String exchange;
     public String sell;
     public String title;
-    public int price;
+    public Long price;
     public String userId;
     public String userName;
-    public String profileImageUrl;
+    public String profileImageUrl = "default";
     public ArrayList<String> likers = new ArrayList<String>();
     public ArrayList<String> dislikers = new ArrayList<String>();
 
@@ -23,7 +24,8 @@ public class Card {
         this.title = title;
     }
 
-    public Card(String userId, String title, String exchange, String sell, int price) {
+    public Card(String userId, String title, String exchange, String sell, Long price) {
+        this.userId = userId;
         this.exchange = exchange;
         this.price = price;
         this.sell = sell;
@@ -31,13 +33,17 @@ public class Card {
     }
 
 
-    public Card(String userId, String userName, String profileImageUrl, String title, String exchange, String sell, int price) {
-        this.userId = userId;
-        this.userName = userName;
-        this.profileImageUrl = profileImageUrl;
-        this.title = title;
-        this.exchange = exchange;
-        this.sell = sell;
+//    public Card(String userId, String userName, String profileImageUrl, String title, String exchange, String sell, int price) {
+//        this.userId = userId;
+//        this.userName = userName;
+//        this.profileImageUrl = profileImageUrl;
+//        this.title = title;
+//        this.exchange = exchange;
+//        this.sell = sell;
+//    }
+
+    public String getTitle() {
+        return this.title;
     }
 
     public String getUserId() {
@@ -63,4 +69,13 @@ public class Card {
     public void setProfileImageUrl(String profileImageUrl) {
         this.profileImageUrl = profileImageUrl;
     }
+
+    public ArrayList<String> getLikers() {
+        return this.likers;
+    }
+
+    public ArrayList<String> getDislikers () {
+        return this.dislikers;
+    }
+
 }

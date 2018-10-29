@@ -97,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
             public void onRightCardExit(Object dataObject) {
 
                 Card card = (Card) dataObject;
+                Log.d("onRightCardExit", card.getUserId());
                 String userId = card.getUserId();
 
                 mPostDb.child(userId).child(card.title).child(FirebaseEntry.COLUMN_LIKERS).child(mCurrentUserId).setValue(true);
@@ -223,6 +224,7 @@ public class MainActivity extends AppCompatActivity {
 //    }
 
     private void loadBookCards() {
+        Log.d("Inside", "loadBookCards");
         mPostDb.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -251,16 +253,18 @@ public class MainActivity extends AppCompatActivity {
 //                    mRowItems.add(card);
 //                    mAdapter.notifyDataSetChanged();
 //                }
+                Log.d("length", "length");
                 for (DataSnapshot user : dataSnapshot.getChildren()) {
+                    Log.d("userId", dataSnapshot.getKey());
                     if (!user.getValue().equals(mCurrentUserId)) {
                         for (DataSnapshot book : dataSnapshot.getChildren()) {
                             if (!book.child(FirebaseEntry.COLUMN_LIKERS).hasChild(mCurrentUserId)
-                                    && book.child(FirebaseEntry.COLUMN_DISLIKERS).hasChild(mCurrentUserId)) {
+                                    && !book.child(FirebaseEntry.COLUMN_DISLIKERS).hasChild(mCurrentUserId)) {
                                 Card currentBook = new Card(
-                                        user.getKey(), book.getKey(),
+                                        dataSnapshot.getKey(), book.getKey(),
                                         (String) book.child(FirebaseEntry.COLUMN_EXCHANGE).getValue(),
                                         (String) book.child(FirebaseEntry.COLUMN_SELL).getValue(),
-                                        (Integer) book.child(FirebaseEntry.COLUMN_PRICE).getValue());
+                                        (Long) book.child(FirebaseEntry.COLUMN_PRICE).getValue());
                                 mRowItems.add(currentBook);
                                 Log.d("CurrentBook", currentBook.title);
                                 mAdapter.notifyDataSetChanged();
@@ -269,6 +273,7 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                 }
+
             }
 
             @Override
@@ -288,7 +293,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                Log.d("database error:", databaseError.getDetails());
             }
         });
     }
