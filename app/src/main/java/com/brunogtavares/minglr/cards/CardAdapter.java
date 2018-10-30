@@ -33,7 +33,7 @@ public class CardAdapter extends ArrayAdapter<Card> {
         TextView name = (TextView) convertView.findViewById(R.id.tv_card_user_name);
         ImageView profilePicture = (ImageView) convertView.findViewById(R.id.iv_card_image);
 
-        name.setText(cardItem.getUserName());
+        name.setText(cardItem.getTitle());
 
         // If image url is assigned to default, it will automatically assign a default image.
         if(cardItem.getProfileImageUrl().equals("default")) {
