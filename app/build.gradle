@@ -9,6 +9,9 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        //for espresso
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -44,6 +47,14 @@ dependencies {
 
     // Implementing Glide
     implementation 'com.github.bumptech.glide:glide:3.7.0'
+
+    // Required -- JUnit 4 framework
+    testImplementation 'junit:junit:4.12'
+
+    //dependencies for espresso
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
+    androidTestImplementation 'androidx.test:runner:1.1.0'
+    androidTestImplementation 'androidx.test:rules:1.1.0'
 }
 
 apply plugin: 'com.google.gms.google-services'
