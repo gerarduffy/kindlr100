@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import com.brunogtavares.minglr.FirebaseData.FirebaseContract.FirebaseEntry;
 import com.brunogtavares.minglr.R;
@@ -52,9 +53,8 @@ public class MatchesActivity extends AppCompatActivity {
     }
 
     private void getUserMatchId() {
-
         DatabaseReference matchDb = FirebaseDatabase.getInstance().getReference()
-                .child(FirebaseEntry.TABLE_USERS).child(mCurrentUserId).child(FirebaseEntry.COLUMN_CONNECTIONS)
+                .child(FirebaseEntry.TABLE_POSTS).child(mCurrentUserId).child(FirebaseEntry.COLUMN_CONNECTIONS)
                 .child(FirebaseEntry.COLUMN_MATCHES);
 
         matchDb.addListenerForSingleValueEvent(new ValueEventListener() {
