@@ -25,5 +25,5 @@
     <string name = "tag_description">Add tags to post:</string>
     <string name="tags">Type tags here, separated by commas</string>
     <string name="image">Book image</string>
-
+    <string name= "price">Enter price of book</string>
 </resources>

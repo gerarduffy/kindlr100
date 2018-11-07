@@ -287,7 +287,8 @@ public class MainActivity extends AppCompatActivity {
                                         dataSnapshot.getKey(), book.getKey(),
                                         (String) book.child(FirebaseEntry.COLUMN_EXCHANGE).getValue(),
                                         (String) book.child(FirebaseEntry.COLUMN_SELL).getValue(),
-                                        (Long) book.child(FirebaseEntry.COLUMN_PRICE).getValue());
+                                        (Long) book.child(FirebaseEntry.COLUMN_PRICE).getValue(),
+                                        (List) book.child(FirebaseEntry.COLUMN_TAGS).getValue());
                                 mRowItems.add(currentBook);
                                 Log.d("CurrentBook", currentBook.title);
                                 mAdapter.notifyDataSetChanged();

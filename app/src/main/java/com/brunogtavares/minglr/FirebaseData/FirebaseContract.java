@@ -41,6 +41,7 @@ public final class  FirebaseContract {
         public static final String COLUMN_PROFILE_IMAGE_URL = "profileImageUrl";
         public static final String COLUMN_USERID = "userID";
         public static final String COLUMN_EMAIL = "email";
+        public static final String COLUMN_TAGS = "tags";
 
     }
 }

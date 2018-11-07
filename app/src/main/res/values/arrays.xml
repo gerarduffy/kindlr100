@@ -4,4 +4,11 @@
         <item>@string/post_type1</item>
         <item>@string/post_type2</item>
     </string-array>
+    <string-array name = "tagSuggestions">
+        <item>harry potter</item>
+        <item>jk rowling</item>
+        <item>twilight</item>
+        <item>great gatsby</item>
+        <item>hamlet</item>
+    </string-array>
 </resources>
