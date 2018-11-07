@@ -12,7 +12,7 @@ public class Card {
     public Long price;
     public String userId;
     public String userName;
-    public String profileImageUrl = "default";
+    public String coverImageUrl = "default";
     public ArrayList<String> likers = new ArrayList<String>();
     public ArrayList<String> dislikers = new ArrayList<String>();
 
@@ -33,10 +33,10 @@ public class Card {
     }
 
 
-//    public Card(String userId, String userName, String profileImageUrl, String title, String exchange, String sell, int price) {
+//    public Card(String userId, String userName, String coverImageUrl, String title, String exchange, String sell, int price) {
 //        this.userId = userId;
 //        this.userName = userName;
-//        this.profileImageUrl = profileImageUrl;
+//        this.coverImageUrl = coverImageUrl;
 //        this.title = title;
 //        this.exchange = exchange;
 //        this.sell = sell;
@@ -62,12 +62,12 @@ public class Card {
         this.userName = userName;
     }
 
-    public String getProfileImageUrl() {
-        return profileImageUrl;
+    public String getcoverImageUrl() {
+        return coverImageUrl;
     }
 
-    public void setProfileImageUrl(String profileImageUrl) {
-        this.profileImageUrl = profileImageUrl;
+    public void setcoverImageUrl(String coverImageUrl) {
+        this.coverImageUrl = coverImageUrl;
     }
 
     public ArrayList<String> getLikers() {

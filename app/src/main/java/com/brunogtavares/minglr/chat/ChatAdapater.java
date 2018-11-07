@@ -18,9 +18,7 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
-/**
- * Created by brunogtavares on 6/2/18.
- */
+
 
 public class ChatAdapater extends RecyclerView.Adapter<ChatAdapater.ChatViewHolder> {
 
