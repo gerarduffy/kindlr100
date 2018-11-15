@@ -35,14 +35,14 @@ public class CardAdapter extends ArrayAdapter<Card> {
 
         name.setText(cardItem.getTitle());
 
-        // If image url is assigned to default, it will automatically assign a default image.
-        if(cardItem.getProfileImageUrl().equals("default")) {
-            Glide.with(convertView.getContext()).load(R.mipmap.ic_launcher).into(profilePicture);
-        }
-        else {
-            Glide.clear(profilePicture);
-            Glide.with(convertView.getContext()).load(cardItem.getProfileImageUrl()).into(profilePicture);
-        }
+//        // If image url is assigned to default, it will automatically assign a default image.
+//        if(cardItem.getcoverImageUrl().equals("default")) {
+//            Glide.with(convertView.getContext()).load(R.mipmap.ic_launcher).into(profilePicture);
+//        }
+//        else {
+//            Glide.clear(profilePicture);
+//            Glide.with(convertView.getContext()).load(cardItem.getProfileImageUrl()).into(profilePicture);
+//        }
 
 
         return convertView;

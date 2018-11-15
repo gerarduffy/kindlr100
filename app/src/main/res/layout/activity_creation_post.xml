@@ -56,10 +56,23 @@
             android:entries="@array/posttypelist" />
 
         <TextView
+            android:id="@+id/priceTitle"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/SpinnerFeedback"
+            android:text="@string/price"/>
+
+        <EditText
+            android:id="@+id/price"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/priceTitle"/>
+
+        <TextView
             android:id="@+id/tag_des"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/SpinnerFeedback"
+            android:layout_below="@id/price"
             android:gravity="start"
             android:textSize="18sp"
             android:textStyle="bold"

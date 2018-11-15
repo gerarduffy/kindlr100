@@ -11,10 +11,14 @@ import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.brunogtavares.minglr.cards.Card;
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,7 +31,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class creation_post extends AppCompatActivity implements View.OnClickListener {
@@ -41,12 +47,47 @@ public class creation_post extends AppCompatActivity implements View.OnClickList
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_creation_post);
+
         Button button = (Button) findViewById(R.id.PostBookButton);
         button.setOnClickListener(this);
+
         Button photoButton = (Button) findViewById(R.id.SelectPhotoButton);
         photoButton.setOnClickListener(this);
+
+        Spinner spinner = (Spinner) findViewById(R.id.SpinnerFeedback);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                TextView title = (TextView) findViewById(R.id.priceTitle);
+                EditText price = (EditText) findViewById(R.id.price);
+
+                switch (i) {
+                    case 0:
+                        title.setVisibility(view.VISIBLE);
+                        price.setVisibility(view.VISIBLE);
+                        break;
+
+                    case 1:
+                        title.setVisibility(view.GONE);
+                        price.setVisibility(view.GONE);
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+
         Log.d("CREATION", "page is created");
         mAuth = FirebaseAuth.getInstance();
+
+        AutoCompleteTextView textView = (AutoCompleteTextView) findViewById(R.id.tags);
+        String [] tagOptions = getResources().getStringArray(R.array.tagSuggestions);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, tagOptions);
+        textView.setAdapter(adapter);
 
     }
 
@@ -58,15 +99,31 @@ public class creation_post extends AppCompatActivity implements View.OnClickList
         final Spinner SpinnerFeedback = (Spinner) findViewById(R.id.SpinnerFeedback);
         String postType = SpinnerFeedback.getSelectedItem().toString();
 
-//        final EditText tagsField = (EditText) findViewById(R.id.tags);
-//        String fullTags = tagsField.getText().toString();
-//        String tagsNoWhiteSpace = fullTags.replaceAll("\\s","");
+        final EditText price = (EditText) findViewById(R.id.price);
 
-        //String [] separateTags = tagsNoWhiteSpace.split(",");
+        String stringPrice = price.getText().toString();
+        Long postPrice;
+
+        if (!stringPrice.equals("")) {
+            postPrice = Long.parseLong(stringPrice);
+        } else {
+            postPrice = Long.parseLong("-1");
+        }
+
+        // Add tags to database
+
+        final EditText tagsField = (EditText) findViewById(R.id.tags);
+        String fullTags = tagsField.getText().toString();
+        String tagsNoWhiteSpace = fullTags.replaceAll("\\s","");
+
+        String [] separateTags = tagsNoWhiteSpace.split(",");
+        List<String> actualTags = Arrays.asList(separateTags);
+
         String title = name;
-        String sell = "";
-        String exchange = "";
-        String owner = mAuth.getCurrentUser().getDisplayName();
+        String sell;
+        String exchange;
+
+        //String owner = mAuth.getCurrentUser().getDisplayName();
         String id = mAuth.getCurrentUser().getUid();
 
         if (postType.equals("Sell")) {
@@ -81,17 +138,26 @@ public class creation_post extends AppCompatActivity implements View.OnClickList
 
         DatabaseReference currentTablePosts = FirebaseDatabase.getInstance()
                 .getReference().child(FirebaseEntry.TABLE_POSTS).child(id);
-        Card newCard = new Card(exchange, sell, title);
+
+        Log.d("FIREBASE", "accessing database");
+
+        Card newCard = new Card(exchange, sell, title, postPrice, actualTags);
+        Log.d("FIREBASE", "made card");
+
         Map userInfo = new HashMap<String, Card>();
         userInfo.put(title, newCard);
+        Log.d("FIREBASE", "added card to map");
 
         currentTablePosts.updateChildren(userInfo);
+        Log.d("FIREBASE", "add to database");
+
 
         Intent i = new Intent(getApplicationContext(), MainActivity.class);
         Log.d("PROFILE", "moving to profile page");
         startActivity(i);
 
     }
+
 
     private void selectImage() {
 
