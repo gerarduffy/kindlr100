@@ -282,7 +282,8 @@ public class MainActivity extends AppCompatActivity {
                     if (!dataSnapshot.getKey().equals(mCurrentUserId)) {
                         for (DataSnapshot book : dataSnapshot.getChildren()) {
                             if (!book.child(FirebaseEntry.COLUMN_LIKERS).hasChild(mCurrentUserId)
-                                    && !book.child(FirebaseEntry.COLUMN_DISLIKERS).hasChild(mCurrentUserId)) {
+                                    && !book.child(FirebaseEntry.COLUMN_DISLIKERS).hasChild(mCurrentUserId)
+                                    && !book.getKey().equals(FirebaseEntry.COLUMN_CONNECTIONS)) {
                                 Card currentBook = new Card(
                                         dataSnapshot.getKey(), book.getKey(),
                                         (String) book.child(FirebaseEntry.COLUMN_EXCHANGE).getValue(),
