@@ -32,8 +32,17 @@ public class CardAdapter extends ArrayAdapter<Card> {
 
         TextView name = (TextView) convertView.findViewById(R.id.tv_card_user_name);
         ImageView profilePicture = (ImageView) convertView.findViewById(R.id.iv_card_image);
+        TextView tags = (TextView) convertView.findViewById(R.id.tags);
+        String allTags = "";
+        for (int i = 0; i < cardItem.tags.size(); i++) {
+            allTags += cardItem.tags.get(i);
+            if (i != cardItem.tags.size()-1) {
+                allTags +=  ", ";
+            }
+        }
 
         name.setText(cardItem.getTitle());
+        tags.setText(allTags);
 
 //        // If image url is assigned to default, it will automatically assign a default image.
 //        if(cardItem.getcoverImageUrl().equals("default")) {

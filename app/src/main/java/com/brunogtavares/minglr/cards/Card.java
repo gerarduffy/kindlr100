@@ -4,6 +4,7 @@ import com.brunogtavares.minglr.user.User;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Card {
     public String exchange;
@@ -15,6 +16,7 @@ public class Card {
     public String coverImageUrl = "default";
     public ArrayList<String> likers = new ArrayList<String>();
     public ArrayList<String> dislikers = new ArrayList<String>();
+    public List<String> tags = new ArrayList<String>();
 
     public Card(){};
 
@@ -30,6 +32,23 @@ public class Card {
         this.price = price;
         this.sell = sell;
         this.title = title;
+    }
+
+    public Card(String userId, String title, String exchange, String sell, Long price, List<String> tags) {
+        this.userId = userId;
+        this.exchange = exchange;
+        this.price = price;
+        this.sell = sell;
+        this.title = title;
+        this.tags = tags;
+    }
+
+    public Card(String title, String exchange, String sell, Long price, List<String> tags) {
+        this.exchange = exchange;
+        this.price = price;
+        this.sell = sell;
+        this.title = title;
+        this.tags = tags;
     }
 
 
