@@ -45,6 +45,7 @@ b) Filtering based on tags
   iii) Users can buy books instead of a pure book swap
   
   TODO List:
+  
   a) Filter books on the home screen based on tags
   
    i) This serves as the search function
