@@ -47,7 +47,7 @@ b) Filtering based on tags
   TODO List:
   a) Filter books on the home screen based on tags
   
-    i) This serves as the search function
+   i) This serves as the search function
     
    b) General UI improvements - we want our app to look good!
 
