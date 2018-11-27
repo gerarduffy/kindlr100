@@ -100,7 +100,12 @@ public class MainActivity extends AppCompatActivity {
                 String userId = card.getUserId();
 
                 mPostDb.child(userId).child(card.title).child(FirebaseEntry.COLUMN_LIKERS).child(mCurrentUserId).setValue(true);
-                isConnectionMatch(userId);
+                Log.d("sell", card.sell);
+                if (card.exchange.equals("false")) {
+                    createSellMatch(userId);
+                } else {
+                    isConnectionMatch(userId);
+                }
                 Toast.makeText(MainActivity.this, FirebaseEntry.COLUMN_YEP, Toast.LENGTH_SHORT).show();
             }
 
@@ -152,6 +157,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void createSellMatch(final String userId) {
+        String key = FirebaseDatabase.getInstance().getReference().child(FirebaseEntry.TABLE_CHAT).push().getKey();
+
+        mPostDb.child(userId)
+                .child(FirebaseEntry.COLUMN_CONNECTIONS).child(FirebaseEntry.COLUMN_MATCHES)
+                .child(mCurrentUserId).child(FirebaseEntry.COLUMN_CHAT_ID).setValue(key);
+
+        mPostDb.child(mCurrentUserId)
+                .child(FirebaseEntry.COLUMN_CONNECTIONS).child(FirebaseEntry.COLUMN_MATCHES)
+                .child(userId).child(FirebaseEntry.COLUMN_CHAT_ID).setValue(key);
     }
 
     private void isConnectionMatch(final String userId) {

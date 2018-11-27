@@ -141,7 +141,7 @@ public class creation_post extends AppCompatActivity implements View.OnClickList
 
         Log.d("FIREBASE", "accessing database");
 
-        Card newCard = new Card(exchange, sell, title, postPrice, actualTags);
+        Card newCard = new Card(title, exchange, sell, postPrice, actualTags);
         Log.d("FIREBASE", "made card");
 
         Map userInfo = new HashMap<String, Card>();

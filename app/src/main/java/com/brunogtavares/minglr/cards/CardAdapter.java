@@ -12,6 +12,8 @@ import com.brunogtavares.minglr.R;
 import com.brunogtavares.minglr.cards.Card;
 import com.bumptech.glide.Glide;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 public class CardAdapter extends ArrayAdapter<Card> {
@@ -33,6 +35,7 @@ public class CardAdapter extends ArrayAdapter<Card> {
         TextView name = (TextView) convertView.findViewById(R.id.tv_card_user_name);
         ImageView profilePicture = (ImageView) convertView.findViewById(R.id.iv_card_image);
         TextView tags = (TextView) convertView.findViewById(R.id.tags);
+        TextView sale = (TextView) convertView.findViewById(R.id.sale);
         String allTags = "";
         for (int i = 0; i < cardItem.tags.size(); i++) {
             allTags += cardItem.tags.get(i);
@@ -43,6 +46,9 @@ public class CardAdapter extends ArrayAdapter<Card> {
 
         name.setText(cardItem.getTitle());
         tags.setText(allTags);
+        if (cardItem.exchange.equals("false")) {
+            sale.setText("Price: " + cardItem.price);
+        }
 
 //        // If image url is assigned to default, it will automatically assign a default image.
 //        if(cardItem.getcoverImageUrl().equals("default")) {
