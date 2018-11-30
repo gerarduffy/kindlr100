@@ -306,7 +306,8 @@ public class MainActivity extends AppCompatActivity {
                                         (String) book.child(FirebaseEntry.COLUMN_EXCHANGE).getValue(),
                                         (String) book.child(FirebaseEntry.COLUMN_SELL).getValue(),
                                         (Long) book.child(FirebaseEntry.COLUMN_PRICE).getValue(),
-                                        (List) book.child(FirebaseEntry.COLUMN_TAGS).getValue());
+                                        (List) book.child(FirebaseEntry.COLUMN_TAGS).getValue(),
+                                        (String) book.child("coverImageUrl").getValue());
                                 mRowItems.add(currentBook);
                                 Log.d("CurrentBook", currentBook.title);
                                 mAdapter.notifyDataSetChanged();

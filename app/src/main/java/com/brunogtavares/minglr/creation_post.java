@@ -123,10 +123,13 @@ public class creation_post extends AppCompatActivity implements View.OnClickList
         String sell;
         String exchange;
 
+        final EditText imageUrlField = (EditText) findViewById(R.id.imageUrl);
+        String imageUrl = imageUrlField.getText().toString();
+
         //String owner = mAuth.getCurrentUser().getDisplayName();
         String id = mAuth.getCurrentUser().getUid();
-
-        if (postType.equals("Sell")) {
+        Log.d("posttype", postType);
+        if (postType.equals("Sale")) {
             sell = "true";
             exchange = "false";
         } else {
@@ -141,7 +144,7 @@ public class creation_post extends AppCompatActivity implements View.OnClickList
 
         Log.d("FIREBASE", "accessing database");
 
-        Card newCard = new Card(title, exchange, sell, postPrice, actualTags);
+        Card newCard = new Card(mAuth.getUid(), title, exchange, sell, postPrice, actualTags, imageUrl);
         Log.d("FIREBASE", "made card");
 
         Map userInfo = new HashMap<String, Card>();

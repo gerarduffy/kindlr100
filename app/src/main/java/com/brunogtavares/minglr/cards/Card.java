@@ -1,5 +1,7 @@
 package com.brunogtavares.minglr.cards;
 
+import android.util.Log;
+
 import com.brunogtavares.minglr.user.User;
 
 import java.lang.reflect.Array;
@@ -13,7 +15,7 @@ public class Card {
     public Long price;
     public String userId;
     public String userName;
-    public String coverImageUrl = "default";
+    public String coverImageUrl;
     public ArrayList<String> likers = new ArrayList<String>();
     public ArrayList<String> dislikers = new ArrayList<String>();
     public List<String> tags = new ArrayList<String>();
@@ -34,22 +36,24 @@ public class Card {
         this.title = title;
     }
 
-    public Card(String userId, String title, String exchange, String sell, Long price, List<String> tags) {
+    public Card(String userId, String title, String exchange, String sell, Long price, List<String> tags, String imageUrl) {
         this.userId = userId;
         this.exchange = exchange;
         this.price = price;
         this.sell = sell;
         this.title = title;
         this.tags = tags;
+        this.coverImageUrl = imageUrl;
+        Log.d("constructor", "using right constructor");
     }
 
-    public Card(String title, String exchange, String sell, Long price, List<String> tags) {
-        this.exchange = exchange;
-        this.price = price;
-        this.sell = sell;
-        this.title = title;
-        this.tags = tags;
-    }
+//    public Card(String title, String exchange, String sell, Long price, List<String> tags) {
+//        this.exchange = exchange;
+//        this.price = price;
+//        this.sell = sell;
+//        this.title = title;
+//        this.tags = tags;
+//    }
 
 
 //    public Card(String userId, String userName, String coverImageUrl, String title, String exchange, String sell, int price) {
@@ -81,7 +85,7 @@ public class Card {
         this.userName = userName;
     }
 
-    public String getcoverImageUrl() {
+    public String getCoverImageUrl() {
         return coverImageUrl;
     }
 

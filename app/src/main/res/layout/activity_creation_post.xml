@@ -78,6 +78,19 @@
             android:textStyle="bold"
             android:text="@string/tag_description" />
 
+        <TextView
+            android:id="@+id/image_des"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/price"
+            android:layout_alignEnd="@+id/ivImage"
+            android:layout_marginTop="92dp"
+            android:layout_marginEnd="0dp"
+            android:gravity="start"
+            android:text="Add image url:"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
         <AutoCompleteTextView
             android:id="@+id/tags"
             android:layout_width="fill_parent"
@@ -88,13 +101,23 @@
             android:ems="10"
             android:hint="@string/tags" />
 
-        <ImageView
-            android:id="@+id/ivImage"
+        <AutoCompleteTextView
+            android:id="@+id/imageUrl"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/tag_des"
+            android:layout_alignStart="@+id/ivImage"
+            android:layout_marginTop="102dp"
+            android:ems="10"
+            android:hint="Type image url" />
+
+        <ImageView
+            android:id="@+id/ivImage"
+            android:layout_width="351dp"
+            android:layout_height="38dp"
             android:layout_below="@+id/tags"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="17dp"
+            android:layout_marginTop="86dp"
             android:contentDescription="@string/image"
             android:src="@drawable/ic_launcher_foreground" />
 
@@ -117,6 +140,18 @@
             android:layout_marginTop="15dp"
             android:gravity="center"
             android:text="Post Book" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginBottom="202dp"
+            android:text="TextView" />
 
     </RelativeLayout>
 
