@@ -52,3 +52,32 @@ b) Filtering based on tags
     
    b) General UI improvements - we want our app to look good!
 
+---------------------------
+  SPRINT 3 DOCUMENTATION
+  
+  Major Improvements since Sprint 2:
+  
+  a) Creation of logo for Kindler
+  
+  b) Update the UI of the sign-in page
+  
+  c) Update the UI of the profile and books list page
+  
+  d) Update fonts across the app
+  
+  e) Update colors across the app
+  
+  f) Modify swipecards so they look more like actual books
+  
+  g) Added a better-looking swipe animation
+  
+  h) Update UI of post creation page
+  
+  i) Fix bug with chat that users had to refresh in order to see each other's chats. Now updates live right when a user sends the chat.
+  
+  
+  
+  This marks the end of our app! Thanks for using!
+
+  
+
