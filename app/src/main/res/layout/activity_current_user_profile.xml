@@ -7,40 +7,37 @@
     tools:context=".user.CurrentUserProfileActivity">
 
     <ImageView
-        android:id="@+id/iv_profile_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/kindlrlogo"
+        android:layout_width="381dp"
+        android:layout_height="100dp"
         android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="18dp"
-        android:layout_marginLeft="18dp"
-        android:layout_marginTop="18dp"
-        tools:srcCompat="@tools:sample/avatars" />
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="15dp"
+        android:src="@mipmap/ic_kindlrlogo" />
 
     <TextView
         android:id="@+id/currentUserName"
-        android:layout_width="wrap_content"
-        android:layout_height="51dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="51dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginRight="24dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/currentUserBooksTitle"
+        android:layout_marginStart="0dp"
+        android:layout_marginBottom="-209dp"
+        android:paddingLeft="10dp"
         android:text="Current User's Name"
         android:textSize="30sp" />
 
     <TextView
         android:id="@+id/currentUserBooksTitle"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="188dp"
-        android:layout_marginEnd="208dp"
-        android:layout_marginRight="208dp"
+        android:layout_marginTop="222dp"
+        android:layout_marginEnd="154dp"
+        android:layout_marginRight="154dp"
+        android:paddingLeft="10dp"
         android:text="Your Books:"
         android:textSize="30sp" />
 
@@ -48,9 +45,13 @@
         android:id="@+id/currentUserBooks"
         android:layout_width="500dp"
         android:layout_height="250dp"
+        android:layout_below="@+id/currentUserBooksTitle"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
+        android:layout_marginTop="-2dp"
         android:layout_marginEnd="0dp"
         android:layout_marginRight="0dp"
         android:layout_marginBottom="0dp" />

@@ -13,33 +13,48 @@
         android:layout_height="wrap_content"
         android:padding="15dp">
 
+        <ImageView
+            android:id="@+id/kindlrlogo"
+            android:layout_width="369dp"
+            android:layout_height="99dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="1dp"
+            android:src="@mipmap/ic_kindlrlogo" />
+
         <TextView
             android:id="@+id/name"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/kindlrlogo"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="48dp"
             android:gravity="left"
+            android:text="@string/feedbacktitle"
             android:textSize="18sp"
-            android:textStyle="bold"
-            android:text="@string/feedbacktitle" />
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/EditTextName"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/name"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="12dp"
+            android:layout_alignEnd="@+id/SpinnerFeedback"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="0dp"
             android:ems="10"
             android:hint="@string/feedbackname"
             android:inputType="textPersonName" />
 
         <TextView
             android:id="@+id/postType"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/EditTextName"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="16dp"
+            android:layout_below="@+id/name"
+            android:layout_alignStart="@+id/price"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="57dp"
             android:gravity="left"
             android:text="@string/post_type"
             android:textSize="18sp"
@@ -50,42 +65,52 @@
             android:layout_width="fill_parent"
             android:layout_height="50dp"
             android:layout_below="@id/postType"
+            android:layout_alignEnd="@+id/image_des"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="132dp"
+            android:layout_marginTop="277dp"
+            android:layout_marginEnd="4dp"
             android:entries="@array/posttypelist" />
 
         <TextView
             android:id="@+id/priceTitle"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/SpinnerFeedback"
-            android:text="@string/price"/>
+            android:layout_alignEnd="@+id/tags"
+            android:layout_marginTop="7dp"
+            android:layout_marginEnd="0dp"
+            android:text="@string/price" />
 
         <EditText
             android:id="@+id/price"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/priceTitle"/>
+            android:layout_below="@+id/priceTitle"
+            android:layout_alignStart="@+id/tags"
+            android:layout_marginStart="-5dp"
+            android:layout_marginTop="7dp" />
 
         <TextView
             android:id="@+id/tag_des"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/price"
+            android:layout_below="@+id/postType"
+            android:layout_alignStart="@+id/postType"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="155dp"
             android:gravity="start"
+            android:text="@string/tag_description"
             android:textSize="18sp"
-            android:textStyle="bold"
-            android:text="@string/tag_description" />
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/image_des"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/price"
+            android:layout_below="@+id/tag_des"
             android:layout_alignEnd="@+id/ivImage"
-            android:layout_marginTop="92dp"
-            android:layout_marginEnd="0dp"
+            android:layout_marginTop="66dp"
+            android:layout_marginEnd="11dp"
             android:gravity="start"
             android:text="Add image url:"
             android:textSize="18sp"
@@ -96,18 +121,20 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tag_des"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="18dp"
+            android:layout_alignStart="@+id/imageUrl"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="12dp"
             android:ems="10"
             android:hint="@string/tags" />
 
         <AutoCompleteTextView
             android:id="@+id/imageUrl"
-            android:layout_width="fill_parent"
+            android:layout_width="359dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tag_des"
             android:layout_alignStart="@+id/ivImage"
-            android:layout_marginTop="102dp"
+            android:layout_marginStart="-9dp"
+            android:layout_marginTop="98dp"
             android:ems="10"
             android:hint="Type image url" />
 
@@ -116,8 +143,9 @@
             android:layout_width="351dp"
             android:layout_height="38dp"
             android:layout_below="@+id/tags"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="86dp"
+            android:layout_alignEnd="@+id/name"
+            android:layout_marginTop="157dp"
+            android:layout_marginEnd="20dp"
             android:contentDescription="@string/image"
             android:src="@drawable/ic_launcher_foreground" />
 
@@ -140,18 +168,6 @@
             android:layout_marginTop="15dp"
             android:gravity="center"
             android:text="Post Book" />
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="24dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginBottom="202dp"
-            android:text="TextView" />
 
     </RelativeLayout>
 
